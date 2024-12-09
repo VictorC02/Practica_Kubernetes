@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  labels:
+    app: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+      - name: app
+        image: app:latest  
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000  
+        livenessProbe:  # Verifica si el contenedor está vivo
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+        readinessProbe:  # Verifica si el contenedor está listo para recibir tráfico
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        env:  
+        - name: PORT
+          value: "3000"
+        - name: POSTGRES_USER
+          value: "user"
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: service-secrets
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_HOST
+          value: "postgres-service"
+        - name: POSTGRES_DB
+          value: "database"
+        - name: POSTGRES_PORT
+          value: "5432"
+        - name: REDIS_PORT
+          value: "6379"
+        - name: REDIS_HOST
+          value: "redis-service"
+        - name: NODE_ENV
+          value: "production"
+        volumeMounts:
+          - name: static-files-volume
+            mountPath: /usr/share/app/static
+      volumes:
+        - name: static-files-volume
+          configMap:
+            name: static-files

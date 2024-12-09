@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: haproxy-config-map
+data:
+  haproxy.cfg: |
+    global
+      log /dev/log local0
+      log /dev/log local1 notice
+      maxconn 200
+
+    defaults
+      log     global
+      option  httplog
+      option  dontlognull
+      timeout connect 5000ms
+      timeout client  50000ms
+      timeout server  50000ms
+
+    frontend http_front
+      bind *:80  # HAProxy escuchará en el puerto 80
+      default_backend http_back
+
+    backend http_back
+      balance roundrobin  # Algoritmo de balanceo
+      server app1 app-service:3000 check  # Nombre del servicio de tu app, usando el puerto 3000

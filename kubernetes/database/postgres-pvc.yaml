@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce  # Solo un pod puede escribir a este volumen a la vez
+  resources:
+    requests:
+      storage: 1Gi  # El tamaño que el pod solicita (puede ser igual o menor que el PV)
+  storageClassName: standard  # Debe coincidir con la clase de almacenamiento definida en el PV

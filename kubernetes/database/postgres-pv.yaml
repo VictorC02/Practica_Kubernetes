@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-pv
+spec:
+  capacity:
+    storage: 1Gi  # Tamaño del volumen
+  accessModes:
+    - ReadWriteOnce  # Solo un pod puede escribir a este volumen a la vez
+  persistentVolumeReclaimPolicy: Retain  # El volumen no se borra cuando el PVC se elimina
+  storageClassName: standard  # Nombre de la clase de almacenamiento, puedes usar "standard" si lo prefieres
+  hostPath:
+    path: "/mnt/data/postgres"  # Ruta en el nodo donde se almacenarán los datos de PostgreSQL
