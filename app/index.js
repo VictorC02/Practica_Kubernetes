@@ -65,7 +65,7 @@ const pool = new Pool({
 //   res.end(await register.metrics());
 // });
 
-const instanceName = process.env.APP_ENV_VAR || 'Unknown Instance';
+const instanceName = process.env.POD_NAME || 'Unknown Instance';
 
 app.get('/health', async (req, res) => {
   try {

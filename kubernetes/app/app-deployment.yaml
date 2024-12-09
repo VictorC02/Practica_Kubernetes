@@ -5,7 +5,7 @@ metadata:
   labels:
     app: app
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: app
@@ -54,6 +54,10 @@ spec:
           value: "redis-service"
         - name: NODE_ENV
           value: "production"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         volumeMounts:
           - name: static-files-volume
             mountPath: /usr/share/app/static

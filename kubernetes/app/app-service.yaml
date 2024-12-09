@@ -2,10 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: app-service
+  labels:
+    app: app
 spec:
   selector:
     app: app
   ports:
     - protocol: TCP
-      port: 3000  # Puerto expuesto por el servicio Kubernetes
+      port: 80  # Puerto expuesto por el servicio Kubernetes
       targetPort: 3000  # Puerto expuesto por el contenedor

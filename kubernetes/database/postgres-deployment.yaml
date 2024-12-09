@@ -30,7 +30,23 @@ spec:
           volumeMounts:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
+            - name: init-script-volume
+              mountPath: /docker-entrypoint-initdb.d
+      initContainers:
+        - name: init-script-loader
+          image: busybox
+          command: ['sh', '-c', 'cp /config/init.sql /docker-entrypoint-initdb.d/init.sql']
+          volumeMounts:
+            - name: init-script-volume
+              mountPath: /docker-entrypoint-initdb.d
+            - name: config-volume
+              mountPath: /config
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
             claimName: postgres-pvc
+        - name: init-script-volume
+          emptyDir: {}
+        - name: config-volume
+          configMap:
+            name: init-script
