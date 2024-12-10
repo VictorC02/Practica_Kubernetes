@@ -69,8 +69,8 @@ jobs:
         uses: docker/build-push-action@v2
         with: 
           push: true
-          context: /app
-          file: /app/Dockerfile
+          context: .
+          file: ./Dockerfile
           tags: |
             victorc02/app:${{ github.sha }}
 
