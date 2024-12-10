@@ -4,17 +4,6 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const Redis = require('ioredis');
-// const promClient = require('prom-client');
-
-// let redisClient;
-// const register = new promClient.Registry();
-
-// // Métrica personalizada: cantidad de solicitudes
-// const httpRequestDurationMicroseconds = new promClient.Gauge({
-//   name: 'http_request_duration_seconds',
-//   help: 'Duration of HTTP requests in seconds',
-//   labelNames: ['method', 'status_code'],
-// });
 
 // Verificar el entorno y conectar a Redis solo en producción
 if (process.env.NODE_ENV === 'production') {
@@ -57,13 +46,6 @@ const pool = new Pool({
   port: process.env.POSTGRES_PORT,
 });
 
-// register.registerMetric(httpRequestDurationMicroseconds);
-
-// // Endpoint para exponer métricas
-// app.get('/metrics', async (req, res) => {
-//   res.set('Content-Type', register.contentType);
-//   res.end(await register.metrics());
-// });
 
 const instanceName = process.env.POD_NAME || 'Unknown Instance';
 
