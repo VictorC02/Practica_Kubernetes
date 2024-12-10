@@ -21,7 +21,8 @@ jobs:
       ### 2. Ejecutar Linter (Ejemplo con ESLint para Node.js) ###
       - name: Run Linter
         run: |
-          npm ci
+          cd app/
+          npm install 
           npm run lint
 
       # ### 3. Ejecutar Pruebas (Ejemplo con Jest para Node.js) ###
