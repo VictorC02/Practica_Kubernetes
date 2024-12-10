@@ -13,17 +13,30 @@ jobs:
   ci-cd:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: read
+      # To report GitHub Actions status checks
+      statuses: write
+
     steps:
       ### 1. Checkout del repositorio ###
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          # super-linter needs the full git history to get the
+          # list of files that changed across commits
+          fetch-depth: 0
 
       ### 2. Ejecutar Linter (Ejemplo con ESLint para Node.js) ###
       - name: Run Linter
-        run: |
-          cd app/
-          npm install 
-          npm run lint
+        uses: super-linter/super-linter@v6.6.0  # x-release-please-version
+        env:
+          # To report GitHub Actions status checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          IGNORE_GENERATED_FILES: true
+          IGNORE_GITIGNORED_FILES: true
+          VALIDATE_ALL_CODEBASE: false
 
       # ### 3. Ejecutar Pruebas (Ejemplo con Jest para Node.js) ###
       # - name: Run Tests
