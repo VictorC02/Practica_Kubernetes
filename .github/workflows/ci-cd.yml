@@ -48,7 +48,7 @@ jobs:
       ### 4. Crear la imagen Docker ###
       - name: Build Docker Image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/app:${{ github.sha }} /app
+          docker build -t ghcr.io/victorc02/app:${{ github.sha }} /app
 
       ### 5. Login en el Container Registry ###
       - name: Login to GitHub
@@ -61,7 +61,7 @@ jobs:
       ### 6. Push de la imagen al Container Registry ###
       - name: Push Docker Image
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/app:${{ github.sha }}
+          docker push ghcr.io/victorc02/app:${{ github.sha }}
 
       ## 7. Despliegue ###
       - name: Introductions to Set-Up
