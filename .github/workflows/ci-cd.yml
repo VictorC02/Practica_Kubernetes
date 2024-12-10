@@ -49,7 +49,6 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t ghcr.io/${{ github.repository_owner }}/app:${{ github.sha }} /app
-          docker tag ghcr.io/${{ github.repository_owner }}/app:${{ github.sha }} ghcr.io/${{ github.repository_owner }}/app:latest
 
       ### 5. Login en el Container Registry ###
       - name: Login to GitHub
@@ -63,7 +62,6 @@ jobs:
       - name: Push Docker Image
         run: |
           docker push ghcr.io/${{ github.repository_owner }}/app:${{ github.sha }}
-          docker push ghcr.io/${{ github.repository_owner }}/app:latest
 
       ## 7. Despliegue ###
       - name: Introductions to Set-Up
