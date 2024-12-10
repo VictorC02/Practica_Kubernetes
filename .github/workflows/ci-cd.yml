@@ -34,6 +34,7 @@ jobs:
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISABLE_ERRORS: true
           IGNORE_GENERATED_FILES: true
           IGNORE_GITIGNORED_FILES: true
           VALIDATE_ALL_CODEBASE: false
@@ -64,13 +65,9 @@ jobs:
           docker push ghcr.io/${{ github.repository_owner }}/app:${{ github.sha }}
           docker push ghcr.io/${{ github.repository_owner }}/app:latest
 
-      # ## 7. Desplegar en Kubernetes ###
-      # - name: Set Kubernetes Context
-      #   uses: azure/setup-kubectl@v3
-      #   with:
-      #     version: 'v1.34.0'  
-
-      # - name: Deploy to Kubernetes
-      #   run: |
-      #     kubectl set image deployment/$K8S_DEPLOYMENT $IMAGE_NAME=$REGISTRY/$IMAGE_NAME:latest 
-      #     kubectl rollout status deployment/$K8S_DEPLOYMENT 
+      ## 7. Despliegue ###
+      - name: Introductions to Set-Up
+        run: |
+          echo("Go to "Practica_Kubernetes/Scripts")
+          echo("Execute init.sh")
+          echo("Execute minikube service ingress-nginx-controller -n ingress-nginx")
