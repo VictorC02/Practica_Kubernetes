@@ -67,15 +67,15 @@ jobs:
       - name: Build and Push
         uses: docker/build-push-action@v2
         with: 
-          push: true
+          push: false
           context: ./app
           tags: |
             victorc02/app:latest
 
-      # ### 6. Push de la imagen al Container Registry ###
-      # - name: Push Docker Image
-      #   run: |
-      #     docker push ghcr.io/victorc02/app:latest
+      ### 6. Push de la imagen al Container Registry ###
+      - name: Push Docker Image
+        run: |
+          docker push ghcr.io/victorc02/app:latest
 
       ## 7. Despliegue ###
       - name: Introductions to Set-Up
