@@ -38,13 +38,7 @@ jobs:
           IGNORE_GITIGNORED_FILES: true
           VALIDATE_ALL_CODEBASE: false
 
-      # ### 3. Ejecutar Pruebas  ###
-      # - name: Run Tests
-      #   run: |
-      #     npm ci
-      #     npm test
-
-      ### 5. Login en el Container Registry ###
+      ### 3. Login en el Container Registry ###
       - name: Login to GitHub
         uses: docker/login-action@v2
         with:
@@ -58,11 +52,16 @@ jobs:
           docker build -t ghcr.io/victorc02/my-app:${{ github.sha }} ./app
           docker tag ghcr.io/victorc02/my-app:${{ github.sha }} ghcr.io/victorc02/my-app:latest
 
-      ### 6. Push de la imagen al Container Registry ###
+      ### 5. Push de la imagen al Container Registry ###
       - name: Push Docker Image
         run: |
           docker push ghcr.io/victorc02/my-app:${{ github.sha }}
           docker push ghcr.io/victorc02/my-app:latest
+
+      ### 6. Ejecutar Pruebas  ###
+      - name: Run Tests
+        run: |
+          ./Scripts/test.sh
 
       ## 7. Despliegue ###
       - name: Introductions to Set-Up
