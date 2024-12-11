@@ -61,6 +61,7 @@ jobs:
       ### 6. Ejecutar Pruebas  ###
       - name: Run Tests
         run: |
+          chmod +x /Scripts/test.sh
           ./Scripts/test.sh
 
       ## 7. Despliegue ###
