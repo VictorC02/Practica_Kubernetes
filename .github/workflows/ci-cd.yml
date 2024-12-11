@@ -67,6 +67,6 @@ jobs:
       ## 7. Despliegue ###
       - name: Introductions to Set-Up
         run: |
-          echo("Ir a "Practica_Kubernetes/Scripts")
-          echo("Ejecutar script init")
-          echo("Ejecutar minikube service ingress-nginx-controller -n ingress-nginx")
+          echo "Ir a "Practica_Kubernetes/Scripts"
+          echo "Ejecutar script init"
+          echo "Ejecutar minikube service ingress-nginx-controller -n ingress-nginx"
