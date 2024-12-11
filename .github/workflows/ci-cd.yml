@@ -16,7 +16,6 @@ jobs:
     permissions:
       contents: read
       packages: read
-      # To report GitHub Actions status checks
       statuses: write
 
     steps:
@@ -28,9 +27,9 @@ jobs:
           # list of files that changed across commits
           fetch-depth: 0
 
-      ### 2. Ejecutar Linter (Ejemplo con ESLint para Node.js) ###
+      ### 2. Ejecutar Linter  ###
       - name: Run Linter
-        uses: super-linter/super-linter@v6.6.0  # x-release-please-version
+        uses: super-linter/super-linter@v6.6.0  
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -39,7 +38,7 @@ jobs:
           IGNORE_GITIGNORED_FILES: true
           VALIDATE_ALL_CODEBASE: false
 
-      # ### 3. Ejecutar Pruebas (Ejemplo con Jest para Node.js) ###
+      # ### 3. Ejecutar Pruebas  ###
       # - name: Run Tests
       #   run: |
       #     npm ci
@@ -69,15 +68,14 @@ jobs:
         uses: docker/build-push-action@v2
         with: 
           push: true
-          context: .
-          file: ./Dockerfile
+          context: ./app
           tags: |
-            victorc02/app:${{ github.sha }}
+            victorc02/app:latest
 
-      # ### 6. Push de la imagen al Container Registry ###
-      # - name: Push Docker Image
-      #   run: |
-      #     docker push ghcr.io/victorc02/app:${{ github.sha }}
+      ### 6. Push de la imagen al Container Registry ###
+      - name: Push Docker Image
+        run: |
+          docker push ghcr.io/victorc02/app:latest
 
       ## 7. Despliegue ###
       - name: Introductions to Set-Up
