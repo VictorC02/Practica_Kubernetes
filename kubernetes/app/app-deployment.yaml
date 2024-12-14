@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: app:latest  
+        image: app:v1  
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000  
@@ -54,6 +54,8 @@ spec:
           value: "redis-service"
         - name: NODE_ENV
           value: "production"
+        - name: APP_VERSION
+          value: "v1"
         - name: POD_NAME
           valueFrom:
             fieldRef:

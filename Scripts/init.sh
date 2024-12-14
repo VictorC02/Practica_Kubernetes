@@ -1,12 +1,11 @@
 #!/bin/bash
-
 set -x
 
 cd "/mnt/c/Users/Victor/Documents/GitHub/Practica_Kubernetes"
 minikube start
 
 cd "/mnt/c/Users/Victor/Documents/GitHub/Practica_Kubernetes/app"
-minikube image build -t app:latest .
+minikube image build -t app:v1 .
 
 minikube addons enable ingress
 
@@ -19,10 +18,10 @@ kubectl create configmap static-files --from-file=./static-files
 
 kubectl apply -f cache/ -f database/ -f service-secrets.yaml -f monitorizacion/ 
 
-sleep 5
+sleep 15
 
 kubectl apply -f app/ 
 
-sleep 10
+sleep 15
 
 kubectl apply -f balanceador/

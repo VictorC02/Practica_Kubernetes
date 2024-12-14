@@ -49,6 +49,13 @@ const pool = new Pool({
 
 const instanceName = process.env.POD_NAME || 'Unknown Instance';
 
+// Define la versión de la app
+const appVersion = process.env.APP_VERSION;
+
+app.get('/version', (req, res) => {
+  res.json({ version: appVersion });
+});
+
 app.get('/health', async (req, res) => {
   try {
     // Verifica la conexión a la base de datos
