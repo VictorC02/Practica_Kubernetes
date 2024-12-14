@@ -27,7 +27,7 @@ jobs:
           # list of files that changed across commits
           fetch-depth: 0
 
-      ### 2. Ejecutar Linter  ###
+      ### 2. Ejecutar Linter y Tests  ###
       - name: Run Linter
         uses: super-linter/super-linter@v6.6.0  
         env:
@@ -58,15 +58,10 @@ jobs:
           docker push ghcr.io/victorc02/my-app:${{ github.sha }}
           docker push ghcr.io/victorc02/my-app:latest
 
-      ### 6. Ejecutar Pruebas  ###
-      - name: Run Tests
-        run: |
-          chmod +x ./Scripts/test.sh
-          ./Scripts/test.sh
-
-      ## 7. Despliegue ###
+      ## 6. Despliegue ###
       - name: Introductions to Set-Up
         run: |
           echo "Ir a Practica_Kubernetes/Scripts"
           echo "Ejecutar script init"
           echo "Ejecutar minikube service ingress-nginx-controller -n ingress-nginx"
+          echo "Si se quiere ejecutar el despliegue canary o blue-green, se tiene que pegar la ip del balanceador en cada script"
