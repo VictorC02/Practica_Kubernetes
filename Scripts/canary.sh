@@ -16,7 +16,7 @@ sleep 30  # Permite que la nueva réplica entre en servicio
 
 # Paso 3: Validar la nueva versión
 echo "---------Testeando la Nueva Versión---------"
-CANARY_RESPONSE=$(curl -s http://127.0.0.1:40549/version | grep -o '"v2"')
+CANARY_RESPONSE=$(curl -s http://127.0.0.1:44737/version | grep -o '"v2"')
 
 if [ "$CANARY_RESPONSE" == '"v2"' ]; then
   echo "---------La Nueva Versión Pasó el Test! Escalando...---------"
