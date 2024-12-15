@@ -31,7 +31,7 @@ jobs:
       - name: Run Linter
         uses: super-linter/super-linter@v6.6.0  
         env:
-          # To report GitHub Actions status checks
+          
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DISABLE_ERRORS: true
           IGNORE_GENERATED_FILES: true
@@ -43,8 +43,8 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}  # Configurar en GitHub Secrets
-          password: ${{ secrets.GHCR_TOKEN }}  # Configurar en GitHub Secrets
+          username: ${{ github.actor }}  
+          password: ${{ secrets.GHCR_TOKEN }}  
       
       ### 4. Crear la imagen Docker ###
       - name: Build Docker Image

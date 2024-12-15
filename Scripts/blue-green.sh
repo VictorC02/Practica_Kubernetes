@@ -80,7 +80,7 @@ EOF
 
 sleep 10
 
-# Paso 6: Escalar la versión verde
+# Paso 2: Escalar la versión verde
 kubectl scale deployment app-green --replicas=3
 
 echo "---------Esperando Instancias Green...---------"
@@ -92,18 +92,18 @@ kubectl get pods
 
 sleep 5
 
-# Paso 7: Cambiar el tráfico a la versión verde
+# Paso 3: Cambiar el tráfico a la versión verde
 kubectl patch service app-service -p '{"spec":{"selector":{"app":"app-green"}}}'
 
 sleep 5
 
-# Paso 3: Validar la nueva versión
+# Paso 4: Validar la nueva versión
 echo "---------Testeando la Nueva Versión---------"
-CANARY_RESPONSE=$(curl -s http://127.0.0.1:33403/version | grep -o '"green"')
+CANARY_RESPONSE=$(curl -s http://127.0.0.1:42133/version | grep -o '"green"')
 
 if [ "$CANARY_RESPONSE" == '"green"' ]; then
   echo "---------La Nueva Versión Pasó el Test!---------"
-  # Paso 8: Escalar la versión azul a 0
+  # Paso 5: Escalar la versión azul a 0
   kubectl scale deployment app --replicas=0
   sleep 2
   echo "---------Despliegue Blue-Green Exitoso!---------"
